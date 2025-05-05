@@ -1,7 +1,25 @@
 <div class="professor-dashboard">
   <header class="dashboard-header">
-    <h1>Professor Dashboard</h1>
-    <p class="welcome-message">Welcome back, Professor. Here are your courses for this semester.</p>
+    <div class="header-content">
+      <h1>Professor Dashboard</h1>
+      <p class="welcome-message">Welcome back, <%= current_user[:name] || "Professor" %>. Here are your courses for this semester.</p>
+    </div>
+    <div class="user-menu">
+      <div class="user-info">
+        <div class="user-avatar">
+          <%= current_user[:name].to_s[0].upcase if current_user[:name].present? %>
+        </div>
+        <div class="user-details">
+          <p class="user-name"><%= current_user[:name] %></p>
+          <p class="user-email"><%= current_user[:email] %></p>
+        </div>
+      </div>
+      <div class="user-actions">
+        <a href="<%= logout_path %>" class="logout-button">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
   </header>
 
   <section class="quick-actions">
@@ -84,4 +102,72 @@
       <% end %>
     </div>
   </section>
-</div> 
+</div>
+
+<style>
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .user-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-right: 0.75rem;
+  }
+
+  .user-details {
+    text-align: right;
+  }
+
+  .user-name {
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+  }
+
+  .user-email {
+    color: #718096;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  .logout-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+  }
+
+  .logout-button:hover {
+    background-color: #e5e7eb;
+  }
+</style> 

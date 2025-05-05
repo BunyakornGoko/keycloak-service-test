@@ -1,0 +1,218 @@
+<div class="debug-container">
+  <h1>Keycloak Connection Debugger</h1>
+  
+  <div class="debug-section">
+    <h2>Environment Variables</h2>
+    <table class="debug-table">
+      <tr>
+        <th>Variable</th>
+        <th>Value</th>
+      </tr>
+      <% @env_vars.each do |key, value| %>
+        <tr>
+          <td><strong><%= key %></strong></td>
+          <td><code><%= value %></code></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  
+  <div class="debug-section">
+    <h2>Connection Test</h2>
+    <div class="connection-status <%= @connection_test[:success] ? 'success' : 'error' %>">
+      <div class="status-indicator"></div>
+      <div class="status-text">
+        <%= @connection_test[:success] ? "Connection Successful" : "Connection Failed" %>
+      </div>
+    </div>
+    
+    <table class="debug-table">
+      <tr>
+        <td><strong>Status Code</strong></td>
+        <td><code><%= @connection_test[:status] %></code></td>
+      </tr>
+      <tr>
+        <td><strong>Message</strong></td>
+        <td><code><%= @connection_test[:message] %></code></td>
+      </tr>
+      <tr>
+        <td><strong>URL</strong></td>
+        <td><code><%= @connection_test[:url] %></code></td>
+      </tr>
+      <% if @connection_test[:error].present? %>
+        <tr>
+          <td><strong>Error</strong></td>
+          <td><code><%= @connection_test[:error] %></code></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  
+  <div class="debug-section">
+    <h2>Troubleshooting Tips</h2>
+    <div class="tips">
+      <p><strong>If you're seeing connection errors:</strong></p>
+      <ul>
+        <li>Make sure your Keycloak server is running and accessible</li>
+        <li>Check that KEYCLOAK_URL is correct (should be just the hostname without protocol)</li>
+        <li>Verify that the realm exists in your Keycloak instance</li>
+        <li>Ensure you've set up proper network access (firewall, DNS, etc.)</li>
+        <li>If using localhost, ensure the port is correct (default is 8080)</li>
+      </ul>
+      
+      <p><strong>Common solutions:</strong></p>
+      <ul>
+        <li>For local development, try using <code>localhost:8080</code> as your KEYCLOAK_URL</li>
+        <li>Make sure you're using HTTPS for production environments</li>
+        <li>For Docker, ensure port mapping is correctly configured</li>
+        <li>If behind a proxy, ensure it's correctly forwarding to Keycloak</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <a href="<%= lobby_path %>" class="btn-primary">Back to Login</a>
+  </div>
+</div>
+
+<style>
+  .debug-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  
+  h1 {
+    color: #2d3748;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 10px;
+  }
+  
+  h2 {
+    color: #4a5568;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .debug-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .debug-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .debug-table th, .debug-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .debug-table th {
+    background-color: #f7fafc;
+    font-weight: 600;
+  }
+  
+  code {
+    background-color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+  
+  .connection-status {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  
+  .success {
+    background-color: #f0fff4;
+    border: 1px solid #c6f6d5;
+  }
+  
+  .error {
+    background-color: #fff5f5;
+    border: 1px solid #fed7d7;
+  }
+  
+  .status-indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .success .status-indicator {
+    background-color: #48bb78;
+  }
+  
+  .error .status-indicator {
+    background-color: #f56565;
+  }
+  
+  .status-text {
+    font-weight: 600;
+  }
+  
+  .success .status-text {
+    color: #2f855a;
+  }
+  
+  .error .status-text {
+    color: #c53030;
+  }
+  
+  .tips {
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #3182ce;
+  }
+  
+  .tips p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .tips ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+  }
+  
+  .tips li {
+    margin-bottom: 6px;
+  }
+  
+  .actions {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2563eb;
+  }
+</style> 

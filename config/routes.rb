@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # Authentication routes
+  get "lobby", to: "sessions#lobby"
+  get "auth/callback", to: "sessions#callback"
+  get "logout", to: "sessions#logout"
+  
+  # Debug route - only available in development
+  get "debug/keycloak", to: "sessions#debug_keycloak" if Rails.env.development?
+
   # Homepage routes
   get "homepage", to: "homepage#index"
   
