@@ -1,0 +1,87 @@
+<div class="professor-dashboard">
+  <header class="dashboard-header">
+    <h1>Professor Dashboard</h1>
+    <p class="welcome-message">Welcome back, Professor. Here are your courses for this semester.</p>
+  </header>
+
+  <section class="quick-actions">
+    <div class="action-card">
+      <div class="action-icon">📝</div>
+      <h3>Create Course</h3>
+      <p>Set up a new course for the semester</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">📊</div>
+      <h3>Analytics</h3>
+      <p>View student performance data</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">📅</div>
+      <h3>Schedule</h3>
+      <p>Manage your teaching schedule</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">📚</div>
+      <h3>Resources</h3>
+      <p>Access teaching materials</p>
+    </div>
+  </section>
+
+  <section class="courses-section">
+    <h2>Your Courses</h2>
+    
+    <div class="courses-grid">
+      <% @courses.each do |course| %>
+        <div class="course-card">
+          <div class="course-header" style="background-color: <%= course[:color] %>">
+            <h3><%= course[:code] %></h3>
+            <p class="course-title"><%= course[:name] %></p>
+          </div>
+          <div class="course-body">
+            <div class="course-info">
+              <p><strong>Students:</strong> <%= course[:students] %></p>
+              <p><strong>Schedule:</strong> <%= course[:schedule] %></p>
+              <p><strong>Room:</strong> <%= course[:room] %></p>
+            </div>
+            <div class="course-status">
+              <% if course[:pending_tasks] > 0 %>
+                <div class="status-badge warning">
+                  <%= course[:pending_tasks] %> pending tasks
+                </div>
+              <% end %>
+              <% if course[:ungraded_assignments] > 0 %>
+                <div class="status-badge alert">
+                  <%= course[:ungraded_assignments] %> to grade
+                </div>
+              <% end %>
+            </div>
+            <div class="course-actions">
+              <a href="#" class="btn-primary">Open Course</a>
+              <a href="#" class="btn-secondary">Materials</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="upcoming-section">
+    <h2>Upcoming Deadlines</h2>
+    <div class="timeline">
+      <% @upcoming_deadlines.each do |deadline| %>
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <span class="date"><%= deadline[:date] %></span>
+          </div>
+          <div class="timeline-content">
+            <h4><%= deadline[:title] %></h4>
+            <p class="course-tag" style="background-color: <%= deadline[:course_color] %>">
+              <%= deadline[:course_code] %>
+            </p>
+            <p><%= deadline[:description] %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div> 
