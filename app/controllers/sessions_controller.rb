@@ -58,7 +58,8 @@ class SessionsController < ApplicationController
   end
 
   def setup_keycloak_auth_url
-    @keycloak_url = "#{KeycloakService.keycloak_base_url}/realms/#{ENV['REALM_ID']}/protocol/openid-connect/auth?client_id=#{ENV['CLIENT_ID']}&redirect_uri=#{ENV['REDIRECT_URI']}&response_type=code&scope=openid"
+    # @keycloak_url = "#{KeycloakService.keycloak_base_url}/realms/#{ENV['REALM_ID']}/protocol/openid-connect/auth?client_id=#{ENV['CLIENT_ID']}&redirect_uri=#{ENV['REDIRECT_URI']}&response_type=code&scope=openid"
+    @keycloak_url = "https://sso.odd.works/realms/BMA-Training/protocol/openid-connect/auth?client_id=1&redirect_uri=http://localhost:3000/auth/callback&response_type=code&scope=openid"
   end
 
   def process_keycloak_code(code)
