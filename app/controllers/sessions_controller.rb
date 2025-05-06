@@ -63,6 +63,7 @@ class SessionsController < ApplicationController
   end
 
   def process_keycloak_code(code)
+    puts "Processing keycloak code: #{code}"
     token = KeycloakService.get_token(code)
     
     if token.nil?

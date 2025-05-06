@@ -5,14 +5,14 @@ require 'json'
 class KeycloakService
   def self.keycloak_base_url
     url = ENV['KEYCLOAK_URL'].to_s.strip
-    
-    # Remove protocol if included
     url = url.sub(/^https?:\/\//, '')
     
     # Ensure no trailing slash
     url = url.sub(/\/$/, '')
     
     "https://#{url}"
+
+    # "https://sso.odd.works/realms/BMA-Training/protocol/openid-connect/token"
   end
 
   def self.test_connection
